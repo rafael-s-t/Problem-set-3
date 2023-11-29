@@ -54,7 +54,13 @@ df_resto <- rbindlist(l=lista_resto , use.names=T , fill=T)
 #Punto 2
 ```{r,echo=F, eval=T}
 db=import ("input/2019/Agosto.csv/Cabecera - Características generales (Personas).csv")
-db %>% ggplot()+geom_point (aes(x=P6040, y=P6050))
+db %>%
+  ggplot(aes(x = P6040, y = P6050)) +
+  geom_point() +  # Add points
+  labs(title = "Your Plot Title",      # Add a title
+       x = "X-Axis Label",             # Label for the x-axis
+       y = "Y-Axis Label") +          # Label for the y-axis
+  theme_minimal()
 ```
 
 
