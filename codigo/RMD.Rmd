@@ -1,34 +1,33 @@
 ---
-title: "Problem set 3" 
+title: "Problem Set 3"
 output: html_document
-nombres: "Maria Jose Medellin 202122960, Juan Camilo Bejarano 202121927, Rafael Sanchez 202123676"
+html_document:
+df_print: paged
+nombres: Maria Jose Medellin 202122960, Juan Camilo Bejarano 202121927, Rafael Sanchez
+  202123676
+R_ver: R version 4.3.1 (2023-06-16 ucrt)
 ---
 
-
-```{r, eval=F , echo=FALSE}
-## Set-Up inicial
-##Cargar los paquetes y librerías necesarias
+### Configuración inicial
+```{r, eval=T, message = F, warning=F}
+## Set Up inicial
 rm(list=ls())
+
+##Cargar los paquetes y librerías necesarias
 require(pacman)
 p_load(tidyverse,rio,data.table)
 ```
 
+
 # Punto 1
-```{r, eval=T}
-## Set.up inicial
-rm(list=ls())
-
-##Cargar los paquetes y librerías necesarias
-require(pacman)
-p_load(tidyverse,rio,data.table) 
-
-## Punto 1.1
-
+### 1.1
+```{r, eval=T, message = F, warning=F}
 ##Obtener la lista de archivos en input
 rutas <- list.files("input" , recursive=T , full.names=T)
+```
 
-## Punto 1.2 
-
+### 1.2
+```{r, eval=T, message = F, warning=F, error=F}
 ## Extraer las rutas
 rutas_resto <- str_subset(string = rutas , pattern = "Resto - Ca")
 
@@ -36,11 +35,9 @@ rutas_resto <- str_subset(string = rutas , pattern = "Resto - Ca")
 lista_resto <- import_list(file = rutas_resto)
 
 ## Textear la cadena de caracteres 
-rutas_resto[1]
 str_sub(rutas_resto[35],start = 14 , 17)
 
 ## Agregar ruta
-View(lista_resto[[1]])
 lista_resto[[1]]$path <- rutas_resto[1]
 
 ## Aplicar loop  
@@ -48,10 +45,10 @@ for (i in 1:length(lista_resto)){
   lista_resto[[i]]$path <- rutas_resto[i]  
   lista_resto[[i]]$year <- str_sub(lista_resto[[i]]$path,start = 14 , 17)
 }
-View(lista_resto[[20]])
+```
 
-## Punto 1.3
-
+### 1.3
+```{r, eval=T, message = F, warning=F}
 ##Eliminar el elemento número 36 de la lista
 lista_resto[[36]] <- NULL
 
@@ -61,8 +58,8 @@ df_resto <- rbindlist(l=lista_resto , use.names=T , fill=T)
 
 
 # Punto 2
-# Grafica 1
-```{r,echo=F, eval=T}
+### Grafica 1
+```{r,echo=F, eval=T, warning=F}
 
 ##Importar archivo
 db=import ("input/2019/Agosto.csv/Cabecera - Características generales (Personas).csv")
@@ -78,8 +75,19 @@ db %>%
 ```
 
 
-# Grafica 2
-```{r}
+### Grafica 2
+```{r,echo=F, eval=T, warning=F}
 
+##Importar archivo
+db=import ("input/2019/Agosto.csv/Cabecera - Características generales (Personas).csv")
+
+##Crear gráfico de dispersión con tema, título y nombre en los ejes
+db %>%
+  ggplot(aes(x = P6040, y = ESC)) +
+  geom_point() +  
+  labs(title = "Gráfico de dispersión de años cumplidos y años de educación",      
+       x = "Años cumplidos",             
+       y = "Años de educación") +          
+  theme_gray()
 ```
 
