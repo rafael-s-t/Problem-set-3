@@ -64,7 +64,7 @@ db %>%
 
 # Grafica 2
 ##Importar archivo
-db=import ("input/2019/Agosto.csv/Cabecera - Caracter??sticas generales (Personas).csv")
+db=import ("input/2019/Agosto.csv/Cabecera - Características generales (Personas).csv")
 
 ##Crear gr??fico de dispersi??n con tema, t??tulo y nombre en los ejes
 db %>%

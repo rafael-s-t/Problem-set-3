@@ -1,11 +1,9 @@
 ---
 title: "Problem Set 3"
-output: html_document
-html_document:
-df_print: paged
+df_print: html_document
 nombres: Maria Jose Medellin 202122960, Juan Camilo Bejarano 202121927, Rafael Sanchez
   202123676
-R_ver: R version 4.3.1 (2023-06-16 ucrt)
+R_ver: "R version 4.3.1 (2023-06-16 ucrt)"
 ---
 
 ### Configuración inicial
@@ -15,9 +13,8 @@ rm(list=ls())
 
 ##Cargar los paquetes y librerías necesarias
 require(pacman)
-p_load(tidyverse,rio,data.table)
+p_load(tidyverse,rio,data.table,stringr,ggplot2)
 ```
-
 
 # Punto 1
 ### 1.1
@@ -29,21 +26,16 @@ rutas <- list.files("input" , recursive=T , full.names=T)
 ### 1.2
 ```{r, eval=T, message = F, warning=F, error=F}
 ## Extraer las rutas
-rutas_resto <- str_subset(string = rutas , pattern = "Resto - Ca")
+rutas_resto <- str_subset(string = rutas, pattern = "Resto - Ca")
 
 ## Cargar en lista
-lista_resto <- import_list(file = rutas_resto)
+lista_resto <- vector("list", length = length(rutas_resto))
 
-## Textear la cadena de caracteres 
-str_sub(rutas_resto[35],start = 14 , 17)
-
-## Agregar ruta
-lista_resto[[1]]$path <- rutas_resto[1]
-
-## Aplicar loop  
-for (i in 1:length(lista_resto)){
-  lista_resto[[i]]$path <- rutas_resto[i]  
-  lista_resto[[i]]$year <- str_sub(lista_resto[[i]]$path,start = 14 , 17)
+## Loop para cargar cada archivo
+for (i in seq_along(rutas_resto)) {
+  lista_resto[[i]] <- import(file = rutas_resto[i])
+  lista_resto[[i]]$path <- rutas_resto[i]
+  lista_resto[[i]]$year <- str_sub(rutas_resto[i], start = 7, end = 10)
 }
 ```
 
@@ -60,7 +52,6 @@ df_resto <- rbindlist(l=lista_resto , use.names=T , fill=T)
 # Punto 2
 ### Grafica 1
 ```{r,echo=F, eval=T, warning=F}
-
 ##Importar archivo
 db=import ("input/2019/Agosto.csv/Cabecera - Características generales (Personas).csv")
 
@@ -77,7 +68,6 @@ db %>%
 
 ### Grafica 2
 ```{r,echo=F, eval=T, warning=F}
-
 ##Importar archivo
 db=import ("input/2019/Agosto.csv/Cabecera - Características generales (Personas).csv")
 
