@@ -1,10 +1,12 @@
 ---
 title: "Problem Set 3"
 df_print: html_document
-nombres: Maria Jose Medellin 202122960, Juan Camilo Bejarano 202121927, Rafael Sanchez
-  202123676
-R_ver: "R version 4.3.1 (2023-06-16 ucrt)"
 ---
+**Maria Jose Medellín (202122960), Juan Camilo Bejarano (202121927), Rafael Sánchez (202123676)**
+
+Versión de R: *R version 4.3.1 (2023-06-16 ucrt)*
+
+Link al repositorio: 
 
 ### Configuración inicial
 ```{r, eval=T, message = F, warning=F}
@@ -16,14 +18,16 @@ require(pacman)
 p_load(tidyverse,rio,data.table,stringr,ggplot2)
 ```
 
-# Punto 1
-### 1.1
+# Punto 1: Bucle
+### 1.1. Lista de archivos en input
 ```{r, eval=T, message = F, warning=F}
 ##Obtener la lista de archivos en input
 rutas <- list.files("input" , recursive=T , full.names=T)
 ```
+El objeto *rutas* almacena el vector de nombre de cada archivo dentro de la carpeta *input*. Cada archivo contiene la ruta de su ubicación. 
 
-### 1.2
+
+### 1.2. Importar archivos
 ```{r, eval=T, message = F, warning=F, error=F}
 ## Extraer las rutas
 rutas_resto <- str_subset(string = rutas, pattern = "Resto - Ca")
@@ -38,46 +42,51 @@ for (i in seq_along(rutas_resto)) {
   lista_resto[[i]]$year <- str_sub(rutas_resto[i], start = 7, end = 10)
 }
 ```
+A cada dataframe se añade una variable que permite identificar el año al que pertenece el archivo.
 
-### 1.3
+
+### 1.3. Combinar conjunto de datos
 ```{r, eval=T, message = F, warning=F}
 ##Eliminar el elemento número 36 de la lista
 lista_resto[[36]] <- NULL
 
 # Combinar la lista en un solo data frame
-df_resto <- rbindlist(l=lista_resto , use.names=T , fill=T)
+cg <- rbindlist(l=lista_resto , use.names=T , fill=T)
 ```
 
+Nuevo data frame que contiene todos los anteriores es *cg*
 
-# Punto 2
-### Grafica 1
+# Punto 2: Visualizaciones
+### Gráfica 1
 ```{r,echo=F, eval=T, warning=F}
 ##Importar archivo
 db=import ("input/2019/Agosto.csv/Cabecera - Características generales (Personas).csv")
 
-##Crear gráfico de dispersión con tema, título y nombre en los ejes
+##Crear grafico de dispersion con tema, titulo y nombre en los ejes
 db %>%
-  ggplot(aes(x = P6040, y = ESC)) +
+  ggplot(aes(x = P6040, y = ESC, color = factor(P6020))) +  # Usamos color para diferenciar por género
   geom_point() +  
-  labs(title = "Gráfico de dispersión de años cumplidos y años de educación",      
-       x = "Años cumplidos",             
-       y = "Años de educación") +          
+  labs(title = "Años cumplidos y años de educación, diferenciado por género",
+       x = "Años cumplidos",
+       y = "Años de educación",
+       color = "Género") +  # Etiqueta para la leyenda de color
+  scale_color_manual(values = c("aquamarine", "darkorchid1"), labels = c("Hombre", "Mujer")) +  
   theme_gray()
 ```
 
 
-### Grafica 2
+### Gráfica 2
 ```{r,echo=F, eval=T, warning=F}
 ##Importar archivo
-db=import ("input/2019/Agosto.csv/Cabecera - Características generales (Personas).csv")
-
-##Crear gráfico de dispersión con tema, título y nombre en los ejes
 db %>%
-  ggplot(aes(x = P6040, y = ESC)) +
-  geom_point() +  
-  labs(title = "Gráfico de dispersión de años cumplidos y años de educación",      
-       x = "Años cumplidos",             
-       y = "Años de educación") +          
-  theme_gray()
+  ggplot(aes(x = factor(P6020), fill = factor(P6160))) +  # Usamos fill para diferenciar por saber/no saber leer y escribir
+  geom_bar(position = "dodge") +
+  labs(title = "Personas que saben o no leer y escribir, diferenciado por género",
+       x = "Género",
+       y = "Cantidad",
+       fill = "Sabe Leer y Escribir") +  
+  scale_x_discrete(labels = c("Hombre", "Mujer")) +  
+  scale_fill_manual(values = c("darkolivegreen1", "darkred"), labels = c("Sabe", "No Sabe")) +  
+  theme_minimal()
 ```
 

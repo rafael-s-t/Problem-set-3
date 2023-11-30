@@ -9,7 +9,7 @@ rm(list=ls())
 
 ##Cargar los paquetes y librerIas necesarias
 require(pacman)
-p_load(tidyverse,rio,data.table)
+p_load(tidyverse,rio,data.table, ggplot2)
 
 
 #PUNTO 1
@@ -54,23 +54,27 @@ db=import ("input/2019/Agosto.csv/Cabecera - Características generales (Persona
 
 ##Crear grafico de dispersion con tema, titulo y nombre en los ejes
 db %>%
-  ggplot(aes(x = P6040, y = ESC)) +
+  ggplot(aes(x = P6040, y = ESC, color = factor(P6020))) +  # Usamos color para diferenciar por género
   geom_point() +  
-  labs(title = "Gr??fico de dispersi??n de a??os cumplidos y a??os de educaci??n",      
-       x = "A??os cumplidos",             
-       y = "A??os de educaci??n") +          
-  theme_gray()
-
+  labs(title = "Años cumplidos y años de educación, diferenciado por género",
+       x = "Años cumplidos",
+       y = "Años de educación",
+       color = "Género") +  # Etiqueta para la leyenda de color
+  scale_color_manual(values = c("aquamarine", "darkorchid1"), labels = c("Hombre", "Mujer")) +
+  theme_minimal()
 
 # Grafica 2
 ##Importar archivo
 db=import ("input/2019/Agosto.csv/Cabecera - Características generales (Personas).csv")
 
-##Crear gr??fico de dispersi??n con tema, t??tulo y nombre en los ejes
+##Crear grafico de dispersion con tema, titulo y nombre en los ejes
 db %>%
-  ggplot(aes(x = P6040, y = ESC)) +
-  geom_point() +  
-  labs(title = "Gr??fico de dispersi??n de a??os cumplidos y a??os de educaci??n",      
-       x = "A??os cumplidos",             
-       y = "A??os de educaci??n") +          
-  theme_gray()
+  ggplot(aes(x = factor(P6020), fill = factor(P6160))) +  # Usamos fill para diferenciar por saber/no saber leer y escribir
+  geom_bar(position = "dodge") +
+  labs(title = "Personas que saben o no leer y escribir, diferenciado por género",
+       x = "Género",
+       y = "Cantidad",
+       fill = "Sabe Leer y Escribir") +  
+  scale_x_discrete(labels = c("Hombre", "Mujer")) +  
+  scale_fill_manual(values = c("darkolivegreen1", "darkred"), labels = c("Sabe", "No Sabe")) +  
+  theme_minimal()
