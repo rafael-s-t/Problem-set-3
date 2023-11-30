@@ -6,7 +6,7 @@ df_print: html_document
 
 Versión de R: *R version 4.3.1 (2023-06-16 ucrt)*
 
-Link al repositorio: 
+Link al repositorio: https://github.com/rafael-s-t/Problem-set-3.git
 
 ### Configuración inicial
 ```{r, eval=T, message = F, warning=F}
