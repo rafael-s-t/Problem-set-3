@@ -1,5 +1,5 @@
 ---
-title: "Problem_set_3" 
+title: "Problem set 3" 
 output: html_document
 nombres: "Maria Jose Medellin 202122960, Juan Camilo Bejarano 202121927, Rafael Sanchez 202123676"
 ---
@@ -60,7 +60,8 @@ df_resto <- rbindlist(l=lista_resto , use.names=T , fill=T)
 ```
 
 
-#Punto 2
+# Punto 2
+# Grafica 1
 ```{r,echo=F, eval=T}
 
 ##Importar archivo
@@ -68,14 +69,17 @@ db=import ("input/2019/Agosto.csv/Cabecera - Características generales (Persona
 
 ##Crear gráfico de dispersión con tema, título y nombre en los ejes
 db %>%
-  ggplot(aes(x = P6040, y = P6050)) +
-  geom_point() +  # Add points
-  labs(title = "Your Plot Title",      # Add a title
-       x = "X-Axis Label",             # Label for the x-axis
-       y = "Y-Axis Label") +          # Label for the y-axis
-  theme_minimal()
+  ggplot(aes(x = P6040, y = ESC)) +
+  geom_point() +  
+  labs(title = "Gráfico de dispersión de años cumplidos y años de educación",      
+       x = "Años cumplidos",             
+       y = "Años de educación") +          
+  theme_gray()
 ```
 
 
+# Grafica 2
+```{r}
 
+```
 
