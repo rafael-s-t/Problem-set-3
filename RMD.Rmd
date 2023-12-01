@@ -1,6 +1,6 @@
 ---
 title: "Problem Set 3"
-df_print: html_document
+df_print: pdf_document
 ---
 **Maria Jose Medellín (202122960), Juan Camilo Bejarano (202121927), Rafael Sánchez (202123676)**
 
@@ -15,7 +15,7 @@ rm(list=ls())
 
 ##Cargar los paquetes y librerías necesarias
 require(pacman)
-p_load(tidyverse,rio,data.table,stringr,ggplot2)
+p_load(tidyverse,rio,data.table,stringr,ggplot2,tinytex)
 ```
 
 # Punto 1: Bucle
