@@ -16,7 +16,7 @@ rm(list=ls())
 
 ##Cargar los paquetes y librerías necesarias
 require(pacman)
-p_load(tidyverse,rio,data.table,stringr,ggplot2)
+p_load(tidyverse,rio,data.table,stringr,ggplot2,tinytex)
 ```
 
 # Punto 1: Bucle
