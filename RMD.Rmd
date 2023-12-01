@@ -1,10 +1,11 @@
 ---
 title: "Problem Set 3"
-df_print: html_document
+df_print: pdf_document
+output: pdf_document
 ---
-**Maria Jose Medellín (202122960), Juan Camilo Bejarano (202121927), Rafael Sánchez (202123676)**
+**Maria Jose Medellín (202122960), Juan Camilo Bejarano (202121927) & Rafael Sánchez (202123676)**
 
-Versión de R: *R version 4.3.1 (2023-06-16 ucrt)*
+*R version 4.3.1 (2023-06-16 ucrt)*
 
 Link al repositorio: https://github.com/rafael-s-t/Problem-set-3.git
 
