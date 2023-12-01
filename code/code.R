@@ -9,7 +9,7 @@ rm(list=ls())
 
 ##Cargar los paquetes y librerIas necesarias
 require(pacman)
-p_load(tidyverse,rio,data.table, ggplot2)
+p_load(tidyverse,rio,data.table, ggplot2, tinytex)
 
 
 #PUNTO 1
